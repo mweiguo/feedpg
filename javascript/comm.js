@@ -1,5 +1,3 @@
-var xmlhttp = false;
-
 function getXmlHttpRequest() {
     if ( window.XMLHttpRequest ) {
 	xmlhttp = new XMLHttpRequest();
