@@ -41,11 +41,31 @@ xmlhttp.onreadystatechange = function () {
 
     if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
 	eval ( "var t="+ xmlhttp.responseText );
+/*
 	var str = "";
 	for ( var i=0; i<t.length; i++ ){
 	    str += "<div><div><input type='checkbox' id='cb" + t[i].title + "'/><a href=\"javascript:loadMap('" + 
 		t[i].title + "','"+ t[i].link + "')\">" + t[i].title + "</a></div>";
 	    str += "<div>" + t[i].description + "</div>";
+	}
+*/
+	var str = "<table>";
+	for ( var i=0; i<t.length; i++ ){
+	    str += "<tr><td>";
+	    str += "<div><div><input type='checkbox' id='cb" + t[i].title + "'/><a href=\"javascript:loadMap('" + 
+		t[i].title + "','"+ t[i].link + "')\">" + t[i].title + "</a></div>";
+	    str += "<div>" + t[i].description + "</div>";
+	    str += "</td>";
+	    i++;
+
+	    if ( i < t.length ) {
+		str += "<td>";
+		str += "<div><div><input type='checkbox' id='cb" + t[i].title + "'/><a href=\"javascript:loadMap('" + 
+		    t[i].title + "','"+ t[i].link + "')\">" + t[i].title + "</a></div>";
+		str += "<div>" + t[i].description + "</div>";
+		str += "</td><tr>";
+	    } else
+		str += "<td></td><tr>";
 	}
 	document.getElementById('output_content').innerHTML += str;
 
