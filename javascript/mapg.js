@@ -15,7 +15,6 @@ xmlhttp.onreadystatechange = function () {
 	    str += "<div>" + t[i].description + "</div>";
 	}
 	document.getElementById('output_content').innerHTML += str;
-
     }
 }
 

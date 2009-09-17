@@ -28,8 +28,14 @@ function parseFeed2josn ( $l ) {
   return json_encode( $newentries );
 }
 
+function openxml ( $l ) {
+  $data = @file_get_contents($l);
+  if ( $data != false )
+    return $data;
+}
 
 if ( array_key_exists ( 'url', $_GET ) )
   echo parseFeed2josn ( $_GET['url'] );
-
+else if ( array_key_exists ( 'urlraw', $_GET ) )
+  echo openxml ( $_GET['url'] );
 ?>

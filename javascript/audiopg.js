@@ -18,7 +18,7 @@ xmlhttp.onreadystatechange = function () {
 	    str += '<embed width="290" height="40" src="http://www.u148.net/images/audio.swf?&amp;soundFile=' + t[i].link
 		+ '&amp;playerID=75723&amp;loader=0x9FFFB8&amp;loop=no&amp;autostart=no" type="application/x-shockwave-flash" id="audioplayer75723"/>';
 	}
-	document.getElementById('audio_content').innerHTML += str;
+	document.getElementById('output_content').innerHTML += str;
 
     }
 }
