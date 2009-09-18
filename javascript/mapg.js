@@ -68,9 +68,9 @@ function outter( title) {
 
 function onStateChangedOutter ( xhr ) {
     return function () {
-	if ( this.readyState == 4 && this.status == 200 ) {
+	if ( xhr.readyState == 4 && xhr.status == 200 ) {
 	    //alert ( 'onStateChanged' );
-	    eval ( "var t="+ this.responseText );
+	    eval ( "var t="+ xhr.responseText );
 	    t.title = t.title.substring ( t.title.lastIndexOf ( "/" )+1 );
 	    var div = document.createElement ("div");
 	    div.innerHTML = "<input type='checkbox' id='cb" + t.title + "'/>" 
