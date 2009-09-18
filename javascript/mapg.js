@@ -66,18 +66,20 @@ function outter( title) {
     return inner;
 }
 
-function onStateChanged () {
-    if ( this.readyState == 4 && this.status == 200 ) {
-	//alert ( 'onStateChanged' );
-	eval ( "var t="+ this.responseText );
-	t.title = t.title.substring ( t.title.lastIndexOf ( "/" )+1 );
-	var div = document.createElement ("div");
-	div.innerHTML = "<input type='checkbox' id='cb" + t.title + "'/>" 
-	    + "<a href=\"javascript:loadMap('" + t.title + "')\";>" + t.title + "</a>";
-	document.getElementById('output_content').appendChild ( div );
-	GEvent.addDomListener ( document.getElementById ( 'cb'+ t.title ), 'click', outter ( t.title ) );
-	maps["org_" + t.title] = t;
-    }
+function onStateChangedOutter ( xhr ) {
+    return function () {
+	if ( this.readyState == 4 && this.status == 200 ) {
+	    //alert ( 'onStateChanged' );
+	    eval ( "var t="+ this.responseText );
+	    t.title = t.title.substring ( t.title.lastIndexOf ( "/" )+1 );
+	    var div = document.createElement ("div");
+	    div.innerHTML = "<input type='checkbox' id='cb" + t.title + "'/>" 
+		+ "<a href=\"javascript:loadMap('" + t.title + "')\";>" + t.title + "</a>";
+	    document.getElementById('output_content').appendChild ( div );
+	    GEvent.addDomListener ( document.getElementById ( 'cb'+ t.title ), 'click', outter ( t.title ) );
+	    maps["org_" + t.title] = t;
+	}
+    };
 }
 
 // load map
@@ -92,7 +94,7 @@ for ( var i=0; i<urls.length; i++ ) {
     var xmlhttp = getXmlHttpRequest();
     if ( xmlhttp ) {
 	xmlhttp.open ('get', baseurl + "?url=" + urlencode(urls[i]), true);
-	xmlhttp.onreadystatechange = onStateChanged;
+	xmlhttp.onreadystatechange = onStateChangedOutter ( xmlhttp );
 	xmlhttp.send (null);
     }
 }
