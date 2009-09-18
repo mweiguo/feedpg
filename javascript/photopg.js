@@ -8,8 +8,8 @@ function onStateChanged () {
 	eval ( "var t="+ this.responseText );
 	for ( var i=0; i<t.items.length; i++ ){
 	    var div = document.createElement("div");
-	    div.innerHTML = "<div><a href="+ t[i].link + ">" + t[i].title + "</a></div>"
-		+ "<div>" + t[i].description + "</div>";
+	    div.innerHTML = "<div><a href="+ t.items[i].link + ">" + t.items[i].title + "</a></div>"
+		+ "<div>" + t.items[i].description + "</div>";
 	    document.getElementById('output_content').appendChild ( div );
 	}
     }
