@@ -4,7 +4,8 @@ var baseurl = 'http://mweiguo.heliohost.org/blog/feedpg/feedapi.php';
 var urls = ['http://feeds.delicious.com/v2/rss/mweiguo/%E9%9F%B3%E4%B9%90?count=15'];
 
 function onStateChanged () {
-    if ( this.readyState == 4 && this.status == 200 ) {
+    if ( this.readyState == 4 && (this.status == 200 ) ) {
+	alert ( 13 + " " + this.responseText );
 	eval ( "var t="+ this.responseText );
 	for ( var i=0; i<t.items.length; i++ ){
 	    var div = document.createElement ("div");

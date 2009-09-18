@@ -73,7 +73,7 @@ function onStateChanged () {
 	t.title = t.title.substring ( t.title.lastIndexOf ( "/" )+1 );
 	var div = document.createElement ("div");
 	div.innerHTML = "<input type='checkbox' id='cb" + t.title + "'/>" 
-	    + "<a href=\"javascript:loadMap('" + t.title + "');>" + t.title + "</a>";
+	    + "<a href=\"javascript:loadMap('" + t.title + "')\";>" + t.title + "</a>";
 	document.getElementById('output_content').appendChild ( div );
 	GEvent.addDomListener ( document.getElementById ( 'cb'+ t.title ), 'click', outter ( t.title ) );
 	maps["org_" + t.title] = t;
