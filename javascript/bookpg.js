@@ -6,7 +6,6 @@ var urls = new Array('http://feeds.delicious.com/v2/rss/mweiguo/%E4%B9%A6%E7%B1%
 function onStateChanged () {
     if ( this.readyState == 4 && this.status == 200 ) {
 	eval ( "var t=" + this.responseText );
-	alert (this.responseText);
 	for ( var i=0; i<t.items.length; i++ ){
 	    t.items[i].description = t.items[i].description.replace (/&#039;/g, "'");
 	    t.items[i].description = t.items[i].description.replace (/&quot;/g, "\"");
