@@ -1,30 +1,35 @@
 //<![CDATA[
-var baseurl = 'http://localhost/feedpg/feedapi.php';
-//var baseurl = 'http://mweiguo.heliohost.org/blog/feedpg/feedapi.php';
-var url = urlencode ('http://www.douban.com/feed/people/4031947/interests');
-url = baseurl + "?url=" + url;
+//var baseurl = 'http://localhost/feedpg/feedapi.php';
+var baseurl = 'http://mweiguo.heliohost.org/blog/feedpg/feedapi.php';
+var urls = new Array('http://feeds.delicious.com/v2/rss/mweiguo/%E4%B9%A6%E7%B1%8D?count=30');
 
-var xmlhttp = false;
-getXmlHttpRequest();
-xmlhttp.onreadystatechange = function () {
-    if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-	eval ( "var t=" + xmlhttp.responseText );
-	var str = "";
-	for ( var i=0; i<t.length; i++ ){
-	    str += "<div><div><a href="+ t[i].link + ">" + t[i].title + "</a></div>";
-	    t[i].description = t[i].description.replace (/&#039;/g, "'");
-	    t[i].description = t[i].description.replace (/&quot;/g, "\"");
-	    eval ( "var bookdesc = " + t[i].description );
+function onStateChanged () {
+    if ( this.readyState == 4 && this.status == 200 ) {
+	eval ( "var t=" + this.responseText );
+	alert (this.responseText);
+	for ( var i=0; i<t.items.length; i++ ){
+	    t.items[i].description = t.items[i].description.replace (/&#039;/g, "'");
+	    t.items[i].description = t.items[i].description.replace (/&quot;/g, "\"");
+
+	    var div = document.createElement('div');
+	    div.innerHTML = "<div><a href="+ t.items[i].link + ">" + t.items[i].title + "</a></div>";
+	    eval ( "var bookdesc = " + t.items[i].description );
 	    if ( 'img' in bookdesc )
-		str += "<img src='" + bookdesc.img + "'/>";
+		div.innerHTML += "<img src='" + bookdesc.img + "'/>";
 	    if ( 'desc' in bookdesc )
-		str += "<div>" + bookdesc.desc + "</div>";
-	    str += "</div>";
+		div.innerHTML += "<div>" + bookdesc.desc + "</div>";
+
+	    document.getElementById('output_content').appendChild ( div );
 	}
-	document.getElementById('output_content').innerHTML += str;
     }
 }
 
-xmlhttp.open ('get', url, true);
-xmlhttp.send (null);
+for ( var i=0; i<urls.length; i++ ) {
+    var xmlhttp = getXmlHttpRequest();
+    if ( xmlhttp ) {
+	xmlhttp.open ('get', baseurl + "?url=" + urlencode(urls[i]), true);
+	xmlhttp.onreadystatechange = onStateChanged;
+	xmlhttp.send ( null );
+    }
+}
 //]]>

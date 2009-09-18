@@ -1,4 +1,5 @@
 function getXmlHttpRequest() {
+    var xmlhttp = false;
     if ( window.XMLHttpRequest ) {
 	xmlhttp = new XMLHttpRequest();
     } else {
@@ -12,6 +13,7 @@ function getXmlHttpRequest() {
 	    }
 	}
     }
+    return xmlhttp;
 }
 
 function urlencode (str) {

@@ -15,16 +15,16 @@ function parseFeed2josn ( $l ) {
     return $newentries;
 
   $feed = new XML_Feed_Parser($data);
-
+  $newentries['title'] = $feed->title;
+  $newentries['description'] = $feed->description;
   foreach ( $feed as $entry ) {
     $tmp = array();
     $tmp['title'] = $entry->title;
     $tmp['pubDate'] = $entry->pubDate;
     $tmp['description']  = $entry->description;
     $tmp['link']  = $entry->link;
-    $newentries[] = $tmp;
+    $newentries['items'][] = $tmp;
   }
-  //  print_r ( $newentries );
   return json_encode( $newentries );
 }
 
