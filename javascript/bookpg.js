@@ -13,11 +13,13 @@ function onStateChangedOutter ( xhr ) {
 
 		var div = document.createElement('div');
 		div.innerHTML = "<div><a href="+ t.items[i].link + ">" + t.items[i].title + "</a></div>";
+		t.items[i].description.replace (/$$sc$$/g, ";");
 		eval ( "var bookdesc = " + t.items[i].description );
-		if ( 'img' in bookdesc )
-		    div.innerHTML += "<img src='" + bookdesc.img + "'/>";
-		if ( 'desc' in bookdesc )
-		    div.innerHTML += "<div>" + bookdesc.desc + "</div>";
+		
+		for ( var j=0; j<bookdesc.desc.length; j++ ) {
+		    div.innerHTML += bookdesc.desc[j].clip;
+		}
+		div.innerHTML += bookdesc.comment;
 
 		document.getElementById('output_content').appendChild ( div );
 	    }

@@ -79,3 +79,17 @@ function urlencode (str) {
     }
     return ret;
 }
+
+function getFlash(name) {   
+    var isIE = navigator.appName.indexOf("Microsoft") != -1; 
+    return (isIE) ? window[name] : document[name];
+}  
+
+function indexof_array ( myarr, value ) {
+    for ( var i=0; i<myarr.length; i++ ) 
+    {
+	if ( myarr[i] === value )
+	    return i;
+    }
+    return -1;
+}
