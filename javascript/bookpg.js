@@ -13,13 +13,19 @@ function onStateChangedOutter ( xhr ) {
 
 		var div = document.createElement('div');
 		div.innerHTML = "<div><a href="+ t.items[i].link + ">" + t.items[i].title + "</a></div>";
-		t.items[i].description.replace (/$$sc$$/g, ";");
+		t.items[i].description = t.items[i].description.replace (/\$sc\$/g, ";");
+		t.items[i].description = t.items[i].description.replace (/&lt;/g, "<");
+		t.items[i].description = t.items[i].description.replace (/&gt;/g, ">");
+		t.items[i].description = t.items[i].description.replace (/&amp;/g, "&");
+		t.items[i].description = t.items[i].description.replace (/\n/g, " ");
+
+//		alert ( t.items[i].description );
 		eval ( "var bookdesc = " + t.items[i].description );
-		
 		for ( var j=0; j<bookdesc.desc.length; j++ ) {
-		    div.innerHTML += bookdesc.desc[j].clip;
+//		    alert ( bookdesc.desc[j] );
+		    div.innerHTML += bookdesc.desc[j];
 		}
-		div.innerHTML += bookdesc.comment;
+		div.innerHTML += "<div>" + bookdesc.comment + "</div>";
 
 		document.getElementById('output_content').appendChild ( div );
 	    }
@@ -36,3 +42,4 @@ for ( var i=0; i<urls.length; i++ ) {
     }
 }
 //]]>
+
